@@ -43,7 +43,7 @@ $(function(){
 		$.getJSON("api.php",function(data){
 			$("#chat").html("");
 			for(i=0;i<data.length;i++){
-				$("#chat").append($("<p />").text(data[i].time+":"+data[i].ip+":"+data[i].text))
+				$("#chat").append($("<p />").text(data[i].nick+":"+data[i].text))
 			}
 			window.setTimeout(get_text,1000)
 		})

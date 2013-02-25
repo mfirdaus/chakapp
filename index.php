@@ -2,6 +2,7 @@
 require_once("header.php");
 
 
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,16 +36,20 @@ $(function(){
 		}
 	})	
 	function get_text(){
-		$.getJSON("api.php",function(data){
+		$.getJSON("posts.json",function(data){
 			$("#chat").html("");
 			for(i=0;i<data.length;i++){
-				$("#chat").append($("<p />").text(data[i].id+":"+data[i].user+":"+data[i].text))
+				if(data[i].user=="1"){
+					$("#chat").append($("<p />").append($("<strong	 />").text(data[i].text)))
+				} else {
+					$("#chat").append($("<p />").text(data[i].nick+": "+data[i].text))
+				}
+				
 			}
 			$(document).scrollTop($(document).height());
 		})
 	}
-	
-	window.setInterval(get_text,1000)
+	window.setInterval(get_text,500)
 	
 })
 </script>
