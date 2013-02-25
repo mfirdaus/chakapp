@@ -1,7 +1,15 @@
-Bootstrap-RedbeanORM-Skeleton file for
+Chakapp - A javascript chatting service. Hopefully with classroom use in mind
 ========
 
-A collection of usefull frameworks to quickly start a new project + some handy php functions I like to use
+In hopes of implementing a backchannel in classroom, this will be designed with a mobile device in mind. Need to get the basic chat functions done + scaling issues [At least be able to support 60 concurrent users/students].
+
+Then implement useful features for students
+- Voting particular comments?
+- Sticky comments by teacher. Star?
+- Hashtags? Search?
+- Allow seperate columns? One or two person types notes?
+- Allow replies?
+
 
 Requirements
 ------------
