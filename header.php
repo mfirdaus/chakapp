@@ -4,6 +4,8 @@ require_once("config.php");
 R::setup("mysql:host=$dbhost;dbname=$dbname",$dbuser,$dbpass);
 session_start();
 
+require_once("functions.php");
+
 function strip_slashes_recursive($mixed){
 	if(is_string($mixed))
     	return stripslashes($mixed);	

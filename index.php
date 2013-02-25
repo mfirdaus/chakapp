@@ -1,7 +1,8 @@
 <?php
 require_once("header.php");
 
-
+if(!isset($_SESSION["nick"]))
+	while(!set_nick("Anon".rand(1,99999)));  //randomly create a nick if no nick is set
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -19,10 +20,13 @@ require_once("header.php");
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <style>
-#chatInput {position:absolute;bottom:0px;}
+#chatInput {position:absolute;top:0px;}
+body {margin-top:30px}
 </style>
 <script>
 $(function(){
+
+	var current_id=0;
 	function send_chat(e){
 		$.post("api.php",{text:$("#chatInput").val()},function(data){})
 		$("#chatInput").val("");
@@ -37,16 +41,16 @@ $(function(){
 	})	
 	function get_text(){
 		$.getJSON("posts.json",function(data){
-			$("#chat").html("");
 			for(i=0;i<data.length;i++){
-				if(data[i].user=="1"){
-					$("#chat").append($("<p />").append($("<strong	 />").text(data[i].text)))
-				} else {
-					$("#chat").append($("<p />").text(data[i].nick+": "+data[i].text))
+				if(parseInt(data[i].id,10)>current_id){
+					current_id=parseInt(data[i].id,10)
+					if(data[i].user=="1")
+						$("#chat").prepend($("<p />").append($("<strong	 />").text(data[i].text)))
+					else
+						$("#chat").prepend($("<p />").text(data[i].nick+": "+data[i].text))
 				}
 				
 			}
-			$(document).scrollTop($(document).height());
 		})
 	}
 	window.setInterval(get_text,500)
@@ -60,9 +64,7 @@ $(function(){
 
 </head>
 <body>
-<div id="chat"></div>
 <textarea rows="1" id="chatInput" type="text" class="input-block-level" name="name" placeholder="type text here and type 'enter' to send"/></textarea>
-</div>
-
+<div id="chat"></div>
 </body>
 </html>
