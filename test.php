@@ -23,8 +23,11 @@ require_once("header.php");
 <script>
 $(function(){
 	function send_chat(e){
-		$.post("api.php",{text:$("#chatInput").val()},function(data){})
+		$.post("api.php",{text:$("#chatInput").val()},function(data){
+			//alert(data);
+		})
 		$("#chatInput").val("");
+		$(document).scrollTop($(document).height());
 		e.preventDefault();
 		return false;	
 	}
@@ -33,18 +36,29 @@ $(function(){
 		if(e.keyCode==13){
 			send_chat(e);
 		}
-	})	
+	})
+	$("#chatInput").focus();
+	
 	function get_text(){
 		$.getJSON("api.php",function(data){
 			$("#chat").html("");
 			for(i=0;i<data.length;i++){
-				$("#chat").append($("<p />").text(data[i].id+":"+data[i].user+":"+data[i].text))
+				$("#chat").append($("<p />").text(data[i].time+":"+data[i].ip+":"+data[i].text))
 			}
-			$(document).scrollTop($(document).height());
+			window.setTimeout(get_text,1000)
 		})
 	}
 	
-	window.setInterval(get_text,1000)
+	//get_text()
+	function test(){
+		$.post("api.php",{text:"lol_test"},function(data){
+			//alert(data);
+			window.setTimeout(test,200)
+		})
+	}
+	
+	test();
+	
 	
 })
 </script>
